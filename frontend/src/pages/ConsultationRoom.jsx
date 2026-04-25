@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import io from 'socket.io-client';
 import Peer from 'peerjs';
 import { Mic, MicOff, Video, VideoOff, PhoneOff, Send } from 'lucide-react';
+import { API_URL } from '../config';
 
 const ConsultationRoom = () => {
   const { id: roomId } = useParams();
@@ -25,7 +26,7 @@ const ConsultationRoom = () => {
   useEffect(() => {
     if (!user) return;
 
-    const newSocket = io('http://localhost:5005');
+    const newSocket = io(API_URL);
     setSocket(newSocket);
 
     // Let's use default peerjs cloud server for simplicity

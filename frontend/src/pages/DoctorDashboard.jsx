@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Users, CheckCircle, XCircle, Video } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { API_URL } from '../config';
 
 const DoctorDashboard = () => {
   const { user, token } = useContext(AuthContext);
@@ -15,7 +16,7 @@ const DoctorDashboard = () => {
   }, [user]);
 
   const fetchAppointments = async () => {
-    const res = await fetch('http://localhost:5005/api/appointments', {
+    const res = await fetch(`${API_URL}/api/appointments`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
@@ -23,7 +24,7 @@ const DoctorDashboard = () => {
   };
 
   const updateStatus = async (id, status) => {
-    await fetch(`http://localhost:5005/api/appointments/${id}/status`, {
+    await fetch(`${API_URL}/api/appointments/${id}/status`, {
       method: 'PATCH',
       headers: { 
         'Content-Type': 'application/json',

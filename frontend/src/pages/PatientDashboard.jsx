@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { BrainCircuit, Calendar as CalendarIcon, Video } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { API_URL } from '../config';
 
 const PatientDashboard = () => {
   const { user, token } = useContext(AuthContext);
@@ -24,7 +25,7 @@ const PatientDashboard = () => {
   }, [user]);
 
   const fetchAppointments = async () => {
-    const res = await fetch('http://localhost:5005/api/appointments', {
+    const res = await fetch(`${API_URL}/api/appointments`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
@@ -32,14 +33,14 @@ const PatientDashboard = () => {
   };
 
   const fetchDoctors = async () => {
-    const res = await fetch('http://localhost:5005/api/auth/doctors');
+    const res = await fetch(`${API_URL}/api/auth/doctors`);
     const data = await res.json();
     setDoctors(Array.isArray(data) ? data : []);
   };
 
   const handleSymptomCheck = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5005/api/ai/check', {
+    const res = await fetch(`${API_URL}/api/ai/check`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ symptoms })
@@ -50,7 +51,7 @@ const PatientDashboard = () => {
 
   const handleBookAppointment = async (e) => {
     e.preventDefault();
-    await fetch('http://localhost:5005/api/appointments', {
+    await fetch(`${API_URL}/api/appointments`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
