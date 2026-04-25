@@ -24,7 +24,7 @@ const PatientDashboard = () => {
   }, [user]);
 
   const fetchAppointments = async () => {
-    const res = await fetch('http://localhost:5000/api/appointments', {
+    const res = await fetch('http://localhost:5005/api/appointments', {
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
@@ -32,14 +32,14 @@ const PatientDashboard = () => {
   };
 
   const fetchDoctors = async () => {
-    const res = await fetch('http://localhost:5000/api/auth/doctors');
+    const res = await fetch('http://localhost:5005/api/auth/doctors');
     const data = await res.json();
     setDoctors(Array.isArray(data) ? data : []);
   };
 
   const handleSymptomCheck = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5000/api/ai/check', {
+    const res = await fetch('http://localhost:5005/api/ai/check', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ symptoms })
@@ -50,7 +50,7 @@ const PatientDashboard = () => {
 
   const handleBookAppointment = async (e) => {
     e.preventDefault();
-    await fetch('http://localhost:5000/api/appointments', {
+    await fetch('http://localhost:5005/api/appointments', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',

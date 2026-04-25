@@ -15,7 +15,7 @@ const DoctorDashboard = () => {
   }, [user]);
 
   const fetchAppointments = async () => {
-    const res = await fetch('http://localhost:5000/api/appointments', {
+    const res = await fetch('http://localhost:5005/api/appointments', {
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
@@ -23,7 +23,7 @@ const DoctorDashboard = () => {
   };
 
   const updateStatus = async (id, status) => {
-    await fetch(`http://localhost:5000/api/appointments/${id}/status`, {
+    await fetch(`http://localhost:5005/api/appointments/${id}/status`, {
       method: 'PATCH',
       headers: { 
         'Content-Type': 'application/json',

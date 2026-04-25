@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      fetch('http://localhost:5000/api/auth/me', {
+      fetch('http://localhost:5005/api/auth/me', {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(res => {

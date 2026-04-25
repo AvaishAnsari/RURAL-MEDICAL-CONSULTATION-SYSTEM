@@ -25,7 +25,7 @@ const ConsultationRoom = () => {
   useEffect(() => {
     if (!user) return;
 
-    const newSocket = io('http://localhost:5000');
+    const newSocket = io('http://localhost:5005');
     setSocket(newSocket);
 
     // Let's use default peerjs cloud server for simplicity
