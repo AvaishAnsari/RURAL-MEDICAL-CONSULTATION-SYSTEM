@@ -11,14 +11,22 @@ const aiRoutes = require('./routes/ai');
 
 const app = express();
 const server = http.createServer(app);
+
+const corsOptions = {
+  origin: ['http://localhost:5173', 'http://localhost:4173'],
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
 const io = new Server(server, {
   cors: {
-    origin: '*',
-    methods: ['GET', 'POST']
+    origin: corsOptions.origin,
+    methods: corsOptions.methods
   }
 });
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes

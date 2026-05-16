@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -20,9 +21,32 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/patient-dashboard" element={<PatientDashboard />} />
-              <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-              <Route path="/consultation/:id" element={<ConsultationRoom />} />
+              <Route
+                path="/patient-dashboard"
+                element={
+                  <ProtectedRoute role="patient">
+                    <PatientDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/doctor-dashboard"
+                element={
+                  <ProtectedRoute role="doctor">
+                    <DoctorDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/consultation/:id"
+                element={
+                  <ProtectedRoute>
+                    <ConsultationRoom />
+                  </ProtectedRoute>
+                }
+              />
+              {/* Catch-all: redirect unknown routes to home */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
         </div>

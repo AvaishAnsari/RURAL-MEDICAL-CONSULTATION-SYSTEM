@@ -46,7 +46,8 @@ router.post('/login', async (req, res) => {
 router.get('/me', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.user_id).select('-password');
-    res.json(user);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    res.json({ id: user._id, name: user.name, email: user.email, role: user.role, specialization: user.specialization });
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
